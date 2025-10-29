@@ -34,4 +34,19 @@ def draw():
     ball.draw()
     ball1.draw()
 
+def update(dt):
+    #Constant acceleration formula downward
+    uy = ball.vy
+    ball.vy += GRAVITY * dt
+    ball.y += (uy + ball.vy) * 0.5 * dt
+
+    #detect and handle bounce
+    if ball.y > HEIGHT - ball.radius: # we've bounced
+        ball.y = HEIGHT - ball.radius # fix the position
+        ball.vy = -ball.vy * 0.9 # inelastic collision
+
+    ball.x += ball.vx * dt
+    if ball.x > WIDTH or ball.x < ball.radius:
+        ball.vx = -ball.vx
+
 pgzrun.go()
